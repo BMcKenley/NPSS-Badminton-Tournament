@@ -511,8 +511,6 @@ function parseMatches(rows) {
     const teamBSlot = pick(raw, ['team b slot', 'slot b', 'seed b', 'b slot', 'player b slot']);
     const schoolA = pick(raw, ['school a']);
     const schoolB = pick(raw, ['school b']);
-    const directTeamA = pick(raw, ['team a', 'player a', 'side a', 'name a', 'competitor a']);
-    const directTeamB = pick(raw, ['team b', 'player b', 'side b', 'name b', 'competitor b']);
     const teamA = schoolA || directTeamA || teamASlot || pick(raw, ['seed 1', 'left']) || 'TBD';
     const teamB = schoolB || directTeamB || teamBSlot || pick(raw, ['seed 2', 'right']) || 'TBD';
     const scoreA = pick(raw, ['score a', 'a score', 'left score', 'score1']);
