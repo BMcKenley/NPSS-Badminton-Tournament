@@ -507,21 +507,51 @@ function parseMatches(rows) {
     const stage = pick(raw, ['stage', 'round', 'phase']) || 'Pool';
     const pool = pick(raw, ['pool', 'group']);
     const matchId = pick(raw, ['match id', 'match number', 'match', 'game number', 'game']) || (index + 1);
-    const teamASlot = pick(raw, ['team a slot', 'slot a', 'seed a', 'a slot', 'player a slot']);
-    const teamBSlot = pick(raw, ['team b slot', 'slot b', 'seed b', 'b slot', 'player b slot']);
+
     const schoolA = pick(raw, ['school a']);
     const schoolB = pick(raw, ['school b']);
-    const teamA = schoolA || directTeamA || teamASlot || pick(raw, ['seed 1', 'left']) || 'TBD';
-    const teamB = schoolB || directTeamB || teamBSlot || pick(raw, ['seed 2', 'right']) || 'TBD';
+    const teamsText = pick(raw, ['teams']);
+
+    const teamASlot = pick(raw, ['team a slot', 'slot a', 'seed a', 'a slot', 'player a slot']);
+    const teamBSlot = pick(raw, ['team b slot', 'slot b', 'seed b', 'b slot', 'player b slot']);
+
+    let parsedTeamA = '';
+    let parsedTeamB = '';
+
+    if (teamsText) {
+      let teamText = String(teamsText).trim();
+
+      if (teamText.includes(': ')) {
+        teamText = teamText.split(': ').slice(1).join(': ');
+      }
+
+      const parts = teamText.split(/\s+vs\s+/i);
+      parsedTeamA = (parts[0] || '').trim();
+      parsedTeamB = (parts[1] || '').trim();
+    }
+
+    const teamA = schoolA || parsedTeamA || teamASlot || pick(raw, ['seed 1', 'left']) || 'TBD';
+    const teamB = schoolB || parsedTeamB || teamBSlot || pick(raw, ['seed 2', 'right']) || 'TBD';
+
     const scoreA = pick(raw, ['score a', 'a score', 'left score', 'score1']);
     const scoreB = pick(raw, ['score b', 'b score', 'right score', 'score2']);
     const winner = pick(raw, ['winner', 'winning side']);
     const court = pick(raw, ['court', 'courts']);
     const status = normalizeStatus(pick(raw, ['status', 'state'])) || inferStatus(scoreA, scoreB, winner);
+
     return {
-      division, stage, pool, matchId: String(matchId).trim(), teamA: String(teamA).trim(), teamB: String(teamB).trim(),
-      scoreA: String(scoreA).trim(), scoreB: String(scoreB).trim(), winner: String(winner).trim(), court: String(court).trim(),
-      status, raw
+      division,
+      stage,
+      pool,
+      matchId: String(matchId).trim(),
+      teamA: String(teamA).trim(),
+      teamB: String(teamB).trim(),
+      scoreA: String(scoreA).trim(),
+      scoreB: String(scoreB).trim(),
+      winner: String(winner).trim(),
+      court: String(court).trim(),
+      status,
+      raw
     };
   }).filter(m => m.teamA || m.teamB);
 }
