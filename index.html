@@ -1106,9 +1106,6 @@
       const total = state.matches.length;
       const live = state.matches.filter(m => normalizeStatus(m.status) === 'live').length;
       els.noteBox.innerHTML = `
-        Connected successfully. Loaded <strong>${escapeHtml(String(total))}</strong> matches from Google Sheets, including <strong>${escapeHtml(String(live))}</strong> live matches right now. Display names now come from the <strong>Matches_*</strong> tabs first and are split like the original index. If a display name is missing there, the page falls back to the <strong>Teams_*</strong> lookup.
-      `;
-    }
 
     function escapeHtml(value) {
       return String(value ?? '')
