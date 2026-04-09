@@ -858,7 +858,7 @@
         state.lastLoadedAt = new Date();
         state.error = null;
 
-        els.syncLabel.textContent = 'LIVE MATES IN PROGRESS';
+        els.syncLabel.textContent = 'LIVE UPDATES IN PROGRESS';
         els.syncMeta.textContent = `Last updated ${state.lastLoadedAt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}. Refreshes every 30 seconds.`;
         renderAll();
       } catch (err) {
