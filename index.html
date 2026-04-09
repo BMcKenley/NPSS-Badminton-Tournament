@@ -1105,7 +1105,12 @@
 
       const total = state.matches.length;
       const live = state.matches.filter(m => normalizeStatus(m.status) === 'live').length;
-      els.noteBox.innerHTML = ``;
+      els.noteBox.innerHTML = `
+      <strong>Match Scoring</strong><br>
+  Pool / Play-In / R16: 21 (win by 2, cap 25)<br>
+  QF / SF: Best of 3 to 15 (cap 19)<br>
+  Finals: Best of 3 to 21 (cap 25)
+      `;
     }
 
     function escapeHtml(value) {
