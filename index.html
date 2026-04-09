@@ -870,8 +870,8 @@ function renderMatchSection(container, matches) {
 function renderMatchCard(match) {
   const statusClass = normalizeKey(match.status).replace(/\s+/g, '') || 'upcoming';
   const isPlayoff = normalizeKey(match.stage) !== 'pool';
-  const displayA = match.teamAResolved || match.teamA;
-  const displayB = match.teamBResolved || match.teamB;
+  const displayA = match.teamA || match.teamAResolved;
+  const displayB = match.teamB || match.teamBResolved;
   const displayWinner = match.winnerResolved || match.winner;
   const winnerA = displayWinner && normalizeKey(displayWinner) === normalizeKey(displayA);
   const winnerB = displayWinner && normalizeKey(displayWinner) === normalizeKey(displayB);
