@@ -872,7 +872,7 @@ function renderMatchCard(match) {
   const isPlayoff = normalizeKey(match.stage) !== 'pool';
   const displayA = match.teamA || match.teamAResolved;
   const displayB = match.teamB || match.teamBResolved;
-  const displayWinner = match.winnerResolved || match.winner;
+  const displayWinner = match.winner || match.winnerResolved;
   const winnerA = displayWinner && normalizeKey(displayWinner) === normalizeKey(displayA);
   const winnerB = displayWinner && normalizeKey(displayWinner) === normalizeKey(displayB);
 
@@ -975,9 +975,9 @@ function renderPlayoffs(filteredMatches) {
               <div class="round-col">
                 <div class="round-title">${escapeHtml(stage)}</div>
                 ${rounds[stage].map(match => {
-                  const displayA = match.teamAResolved || match.teamA;
-                  const displayB = match.teamBResolved || match.teamB;
-                  const displayWinner = match.winnerResolved || match.winner;
+                  const displayA = match.teamA || match.teamAResolved;
+                  const displayB = match.teamB || match.teamBResolved;
+                  const displayWinner = match.winner || match.winnerResolved;
                   const winnerA = displayWinner && normalizeKey(displayWinner) === normalizeKey(displayA);
                   const winnerB = displayWinner && normalizeKey(displayWinner) === normalizeKey(displayB);
                   return `
